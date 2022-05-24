@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react';
-import { loadData } from './web3/funcs';
+import { loadData } from '../web3/funcs';
 
 export default function Home() {
 
