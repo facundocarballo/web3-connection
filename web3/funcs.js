@@ -1,7 +1,8 @@
 import Web3 from 'web3';
 import Web3Conection from './ABI/web3Conection.json';
+import { Moralis_ID } from '../private';
 
-const BSC_TESTNET_RPC = "https://speedy-nodes-nyc.moralis.io/2912346aef06f91434f92aa1/bsc/testnet";
+const BSC_TESTNET_RPC = `https://speedy-nodes-nyc.moralis.io/${Moralis_ID}/bsc/testnet`;
 
 const Contract = require("web3-eth-contract");
 
