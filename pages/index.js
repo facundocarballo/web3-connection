@@ -46,9 +46,9 @@ export default function Home() {
     }).then((res) => {
       console.log("Transaction Hash: ", res);
 
-      setInterval(() => {
+      setTimeout(() => {
         // after 10 seconds will execute this code...
-        setNumber(inputValue);
+        handleWeb3();
       }, 10000); // 10 seconds
 
     });
