@@ -51,7 +51,7 @@ export default function Home() {
 
       const interval = setInterval(() => 
       {
-        web3.eth.getTransactionReceipt(res, (_, rec) => 
+        web3.eth.getTransactionReceipt(res, (err, rec) => 
         {
           if (rec)
           {
@@ -59,6 +59,12 @@ export default function Home() {
             setInputValue('');
             clearInterval(interval);
           }
+          
+          if (err)
+          {
+            console.log('ERROR: ', err);
+          }
+
         });
           
       }, 500);
