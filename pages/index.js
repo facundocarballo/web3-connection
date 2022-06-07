@@ -9,9 +9,10 @@ export default function Home() {
   const [addressAccount, setAddressAccount] = React.useState(null);
   const [contractAddress, setContractAddress] = React.useState(null);
 
-  const [inputValue, setInputValue] = React.useState(null);
+  const [inputValue, setInputValue] = React.useState('');
 
-  const handleWeb3 = async () => {
+  const handleWeb3 = async () => 
+  {
     const data = await loadData();
 
     setNumber(data.number);
@@ -20,12 +21,13 @@ export default function Home() {
     setContractAddress(data.Contract_Address);
   };
 
-  const handleChangeNumber = async () => {
-    const data = await contract.methods.changeNumber(inputValue).encodeABI();
+  const handleChangeNumber = async () => 
+  {
+    const data = await contract.methods.changeNumber(Number(inputValue)).encodeABI();
 
     const nonce = await web3.eth.getTransactionCount(addressAccount);
 
-    const estimateGas = await contract.methods.changeNumber(inputValue).estimateGas({
+    const estimateGas = await contract.methods.changeNumber(Number(inputValue)).estimateGas({
       from: addressAccount,
       to: contractAddress,
       nonce: nonce,
@@ -43,13 +45,23 @@ export default function Home() {
     ethereum.request({
       method: 'eth_sendTransaction',
       params: [params]
-    }).then((res) => {
+    }).then((res) => 
+    {
       console.log("Transaction Hash: ", res);
 
-      setTimeout(() => {
-        // after 10 seconds will execute this code...
-        handleWeb3();
-      }, 10000); // 10 seconds
+      const interval = setInterval(() => 
+      {
+        web3.eth.getTransactionReceipt(res, (_, rec) => 
+        {
+          if (rec)
+          {
+            handleWeb3();
+            setInputValue('');
+            clearInterval(interval);
+          }
+        });
+          
+      }, 500);
 
     });
 
@@ -69,7 +81,7 @@ export default function Home() {
 
       <h3>Number: {number}</h3>
 
-      <input type='number' value={inputValue} onChange={(e) => setInputValue(e.currentTarget.value) } placeholder="Put the number that you want to store in the blockchain"/>
+      <input type='number' value={inputValue} onChange={(e) => setInputValue(e.currentTarget.value) } placeholder="Put a number"/>
       <button onClick={handleChangeNumber}>Change Number</button>
 
     </>
