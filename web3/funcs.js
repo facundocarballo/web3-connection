@@ -1,8 +1,7 @@
 import Web3 from 'web3';
 import Web3Conection from './ABI/web3Conection.json';
-import { Moralis_ID } from '../private';
 
-const BSC_TESTNET_RPC = `https://speedy-nodes-nyc.moralis.io/${Moralis_ID}/bsc/testnet`;
+const BSC_TESTNET_RPC = 'https://data-seed-prebsc-1-s1.binance.org:8545/';
 
 const Contract = require("web3-eth-contract");
 
